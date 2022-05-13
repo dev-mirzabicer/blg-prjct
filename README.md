@@ -96,7 +96,7 @@ Start the server
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://github.com/dev-mirzabicer/express-ts-rest-api/blob/master/LICENSE.md)
 
 ## Feedback
 

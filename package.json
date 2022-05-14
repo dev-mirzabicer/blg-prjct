@@ -9,8 +9,7 @@
     "test:coverage": "jest --coverage",
     "start": "ts-node-dev src/index.ts",
     "dev": "ts-node-dev src/index.ts",
-    "build": "tsc -p tsconfig.build.json",
-    "postinstall": "npm run build"
+    "build": "tsc -p tsconfig.build.json"
   },
   "author": "mirza-bicer",
   "license": "ISC",

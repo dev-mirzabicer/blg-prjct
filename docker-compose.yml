@@ -1,0 +1,24 @@
+services:
+  mongo_db:
+    image: mongo
+    restart: always
+    ports:
+      - 2717:27017
+    volumes:
+      - mongo_db:/data/db
+  
+  api:
+    build: .
+    ports:
+      - "8371:8371"
+    environment:
+      NODE_ENV: "development"
+      MONGO_URI: "mongodb://mongo_db:27017/Feiko"
+      MONGO_PASSWORD: ""
+      API_VERSION: "0.0.1"
+      PORT: "8371"
+    depends_on:
+      - mongo_db
+
+volumes:
+  mongo_db: {}

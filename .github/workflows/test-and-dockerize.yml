@@ -23,6 +23,12 @@ jobs:
               run: npm ci
             - name: Run tests
               run: npm test
+              env:
+                  NODE_ENV: development
+                  MONGO_URI: mongodb://localhost:27017/Feiko
+                  MONGO_PASSWORD:
+                  API_VERSION: 0.0.1
+                  PORT: 8371
     dockerize:
         needs: test
         runs-on: ubuntu-latest

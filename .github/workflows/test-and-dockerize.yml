@@ -24,8 +24,7 @@ jobs:
       - name: Run tests
         run: npm test
   dockerize:
-    needs:
-      - test
+    needs: test
     runs-on: ubuntu-latest
     steps:
       -

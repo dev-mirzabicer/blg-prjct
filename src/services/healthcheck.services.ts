@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Healthcheck from "../models/healthcheck.model";
 import AdvancedQuery from "../utils/advancedQuery";
 import { Query as MongoQuery, Document } from "mongoose";

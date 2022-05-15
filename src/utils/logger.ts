@@ -15,8 +15,8 @@ export default function log(
     stdout.write(
         `${logType[type]} ${message}${
             error
-                ? `\nMessage: ${error.message}\nStack:\n\t${error.stack}`
-                : "\n"
+                ? `\nMessage: ${error.message}\nStack:\n\t${error.stack || " "}`
+                : " "
         }\n`
     );
 }

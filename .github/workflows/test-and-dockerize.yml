@@ -46,4 +46,3 @@ jobs:
         with:
           push: true
           tags: mirzabicer/feiko:latest
-          image: mirzabicer/feiko

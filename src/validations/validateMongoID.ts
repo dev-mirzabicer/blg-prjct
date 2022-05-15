@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const objectId = (value: any, helpers: any) => {
-    if (!value.match(/^[0-9a-fA-F]{24}$/)) {
+const objectId = (value: string, helpers: any) => {
+    if (!/^[0-9a-fA-F]{24}$/.test(value)) {
         return helpers.message("'{{#label}}' must be a valid mongo id");
     }
     return value;

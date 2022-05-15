@@ -9,7 +9,7 @@ const INVALID_ID = "123xyz";
 const app = App.express;
 
 describe("API Methods", () => {
-    test("POST /healthcheck/", async () => {
+    test("POST /healthcheck/", () => {
         return request(app)
             .post(`${URL}/`)
             .send({
@@ -28,7 +28,7 @@ describe("API Methods", () => {
                 expect(error).toBeUndefined();
             });
     });
-    test("GET /healthcheck/", async () => {
+    test("GET /healthcheck/", () => {
         return request(app)
             .get(`${URL}/`)
             .then((response) => {
@@ -44,9 +44,9 @@ describe("API Methods", () => {
                 expect(error).toBeUndefined();
             });
     });
-    test("GET /healthcheck/:id", async () => {
+    test("GET /healthcheck/:id", () => {
         return request(app)
-            .get(`${URL}/${TEMP_ID}`)
+            .get(`${URL}/${TEMP_ID || INVALID_ID}`)
             .then((response) => {
                 expect(response.body).toMatchObject({
                     status: "OK",
@@ -62,7 +62,7 @@ describe("API Methods", () => {
                 expect(error).toBeUndefined();
             });
     });
-    test("GET /healthcheck:id - Invalid ID", async () => {
+    test("GET /healthcheck:id - Invalid ID", () => {
         return request(app)
             .get(`${URL}/${INVALID_ID}`)
             .then((wrongResponse) => {
@@ -73,7 +73,7 @@ describe("API Methods", () => {
                 expect(error).toBeUndefined();
             });
     });
-    test("GET /healthcheck:id - Not-existing ID", async () => {
+    test("GET /healthcheck:id - Not-existing ID", () => {
         return request(app)
             .get(`${URL}/${NON_EXSTNG_ID}`)
             .then((wrongResponse) => {
@@ -87,7 +87,7 @@ describe("API Methods", () => {
     });
     test("PATCH /healthcheck/:id", () => {
         return request(app)
-            .patch(`${URL}/${TEMP_ID}`)
+            .patch(`${URL}/${TEMP_ID || INVALID_ID}`)
             .send({
                 healthcheck: "Test2",
             })
@@ -108,9 +108,9 @@ describe("API Methods", () => {
                 expect(error).toBeUndefined();
             });
     });
-    test("DELETE /healthcheck/:id", async () => {
+    test("DELETE /healthcheck/:id", () => {
         return request(app)
-            .delete(`${URL}/${TEMP_ID}`)
+            .delete(`${URL}/${TEMP_ID || INVALID_ID}}`)
             .then((response) => {
                 expect(response.status).toEqual(204);
                 expect(response.body).toEqual({});

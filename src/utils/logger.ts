@@ -11,10 +11,12 @@ export default function log(
     type: keyof typeof logType,
     message: string,
     error: Error | undefined = undefined
-) {
+): void {
     stdout.write(
         `${logType[type]} ${message}${
-            error ? `\nMessage: ${error.message}\nStack:\n\t${error.stack}` : ""
+            error
+                ? `\nMessage: ${error.message}\nStack:\n\t${error.stack}`
+                : "\n"
         }\n`
     );
 }

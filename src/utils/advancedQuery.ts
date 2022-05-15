@@ -51,7 +51,7 @@ export default class AdvancedQuery {
         return this;
     }
 
-    public query() {
+    public query(): MongoQuery<any, any> {
         return this.mongoQuery;
     }
 }

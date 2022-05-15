@@ -12,6 +12,7 @@ import logger from "./utils/logger";
 import { errorHandler } from "./middlewares";
 import { useRoutes } from "./routes";
 import ApiError from "./utils/apiError";
+import { Server } from "http";
 
 class App {
     public express: Application;
@@ -49,7 +50,7 @@ class App {
             .then(() => {
                 logger("info", "Connected to MongoDB");
             })
-            .catch(async (err) => {
+            .catch((err) => {
                 logger("fatal", "Error connecting to MongoDB: ", err);
                 process.exit(1);
             });
@@ -66,13 +67,13 @@ class App {
         });
     }
 
-    public listen() {
+    public listen(): Server {
         return this.express.listen(this.port, () => {
             logger("info", `Server listening on port ${this.port}`);
         });
     }
 
-    public quit() {
+    public quit(): void {
         mongoose.disconnect();
     }
 }

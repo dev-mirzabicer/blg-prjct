@@ -87,7 +87,7 @@ const errorMiddleware: ErrorRequestHandler = (
     res: Response,
     next: NextFunction
 ) => {
-    new Handler(error, res);
+    return new Handler(error, res);
 };
 
 export default errorMiddleware;

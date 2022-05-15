@@ -110,7 +110,7 @@ describe("API Methods", () => {
     });
     test("DELETE /healthcheck/:id", () => {
         return request(app)
-            .delete(`${URL}/${TEMP_ID || INVALID_ID}}`)
+            .delete(`${URL}/${TEMP_ID || INVALID_ID}`)
             .then((response) => {
                 expect(response.status).toEqual(204);
                 expect(response.body).toEqual({});

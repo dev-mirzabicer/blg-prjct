@@ -2,13 +2,16 @@ import request from "supertest";
 import { app as App, server } from "../../";
 
 let TEMP_ID: string | undefined;
+const URL = `/api/v${process.env.API_VERSION}/healthcheck`;
+const NON_EXSTNG_ID = "627e04117a769509476feb1f";
+const INVALID_ID = "123xyz";
 
 const app = App.express;
 
 describe("API Methods", () => {
     test("POST /healthcheck/", async () => {
         return request(app)
-            .post("/api/v0.0.1/healthcheck/")
+            .post(`${URL}/`)
             .send({
                 healthcheck: "Test",
             })
@@ -27,7 +30,7 @@ describe("API Methods", () => {
     });
     test("GET /healthcheck/", async () => {
         return request(app)
-            .get("/api/v0.0.1/healthcheck/")
+            .get(`${URL}/`)
             .then((response) => {
                 expect(response.status).toEqual(200);
                 expect(response.body.status).toEqual("OK");
@@ -43,7 +46,7 @@ describe("API Methods", () => {
     });
     test("GET /healthcheck/:id", async () => {
         return request(app)
-            .get(`/api/v0.0.1/healthcheck/${TEMP_ID}`)
+            .get(`${URL}/${TEMP_ID}`)
             .then((response) => {
                 expect(response.body).toMatchObject({
                     status: "OK",
@@ -61,7 +64,7 @@ describe("API Methods", () => {
     });
     test("GET /healthcheck:id - Invalid ID", async () => {
         return request(app)
-            .get("/api/v0.0.1/healthcheck/123")
+            .get(`${URL}/${INVALID_ID}`)
             .then((wrongResponse) => {
                 expect(wrongResponse.status).toEqual(400);
                 expect(wrongResponse.body.status).toEqual("fail");
@@ -72,7 +75,7 @@ describe("API Methods", () => {
     });
     test("GET /healthcheck:id - Not-existing ID", async () => {
         return request(app)
-            .get("/api/v0.0.1/healthcheck/627e04117a769509476feb1f")
+            .get(`${URL}/${NON_EXSTNG_ID}`)
             .then((wrongResponse) => {
                 expect(wrongResponse.status).toEqual(404);
                 expect(wrongResponse).toHaveProperty("error");
@@ -84,7 +87,7 @@ describe("API Methods", () => {
     });
     test("PATCH /healthcheck/:id", () => {
         return request(app)
-            .patch(`/api/v0.0.1/healthcheck/${TEMP_ID}`)
+            .patch(`${URL}/${TEMP_ID}`)
             .send({
                 healthcheck: "Test2",
             })
@@ -107,7 +110,7 @@ describe("API Methods", () => {
     });
     test("DELETE /healthcheck/:id", async () => {
         return request(app)
-            .delete(`/api/v0.0.1/healthcheck/${TEMP_ID}`)
+            .delete(`${URL}/${TEMP_ID}`)
             .then((response) => {
                 expect(response.status).toEqual(204);
                 expect(response.body).toEqual({});

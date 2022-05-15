@@ -45,4 +45,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: mirzabicer/feiko:latest
+          tags: mirzabicer/feiko_api:latest

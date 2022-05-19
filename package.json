@@ -1,7 +1,7 @@
 {
-  "name": "feiko",
+  "name": "express-ts-rest-api",
   "version": "1.0.0",
-  "description": "Feiko API",
+  "description": "express-ts-rest-api API",
   "main": "index.js",
   "scripts": {
     "test": "jest",

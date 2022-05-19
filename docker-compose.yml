@@ -13,7 +13,7 @@ services:
       - "8371:8371"
     environment:
       NODE_ENV: "development"
-      MONGO_URI: "mongodb://mongo_db:27017/Feiko"
+      MONGO_URI: "mongodb://mongo_db:27017/express-ts-rest-api"
       MONGO_PASSWORD: ""
       API_VERSION: "0.0.1"
       PORT: "8371"

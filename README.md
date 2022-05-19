@@ -19,10 +19,12 @@ To run this project, you will need to add the following environment variables to
 
 ## Tech Stack
 
+**Language:** TypeScript\
 **Server:** Node, Express\
 **Database:** MongoDB, Mongoose, Typegoose\
 **Testing:** Jest, Supertest, ts-jest\
-**Validation:** Joi
+**Validation:** Joi\
+**Other:** Docker, GitHub Actions
 
 ## Running Tests
 
@@ -56,9 +58,9 @@ For support, email mirzabicer.dev@gmail.com or message me on [LinkedIn](https://
 
 ## Roadmap
 
--   Use docker
+-   Use docker (done ✅)
 
--   Use GitHub Actions
+-   Use GitHub Actions (done ✅)
 
 -   Use a better demo model than `healthcheck`
 

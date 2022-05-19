@@ -21,7 +21,8 @@ To run this project, you will need to add the following environment variables to
 
 **Language:** TypeScript\
 **Server:** Node, Express\
-**Database:** MongoDB, Mongoose, Typegoose\
+**Database:** MongoDB\
+**ORM**: Mongoose, Typegoose\
 **Testing:** Jest, Supertest, ts-jest\
 **Validation:** Joi\
 **Other:** Docker, GitHub Actions

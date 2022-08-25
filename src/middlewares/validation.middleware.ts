@@ -6,7 +6,7 @@ import pick from "../utils/pick";
 import hs from "http-status";
 
 const validate = (
-    schema: Record<string, Joi.ObjectSchema<any>>
+    schema: Record<string, Joi.ObjectSchema<any> | Joi.Schema<any>>
 ): RequestHandler => {
     return (req: Request, res: Response, next: NextFunction): void => {
         const options = {

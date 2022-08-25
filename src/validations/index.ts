@@ -1,7 +1,5 @@
-import HealthcheckValidation, {
+import healthcheckValidation, {
     healthcheckSchema,
 } from "./healthcheck.validation";
-
-const healthcheckValidation = new HealthcheckValidation();
 
 export { healthcheckValidation, healthcheckSchema };

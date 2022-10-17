@@ -1,30 +1,14 @@
-/* eslint indent: 0 */
-import { catchAsync } from "../utils/catchAsync";
+import catchAsync from "../utils/catchAsync";
 import hs from "http-status";
-import pick from "../utils/pick";
-import healthcheckServices from "../services/healthcheck.services";
+import { healthcheckServices } from "../services/";
 import ApiError from "../utils/apiError";
-
-function validQuery(query: Record<string, unknown>) {
-    const validQuery = pick(query, [
-        "healthcheck",
-        "page",
-        "limit",
-        "sort",
-        "fields",
-    ]);
-    return validQuery;
-}
+import stringify from "utils/stringify";
 
 const getOne = catchAsync(async (req, res, next) => {
-    const fields =
-        typeof req.query.fields === "string"
-            ? req.query.fields
-            : typeof req.query.fields?.join === "function"
-            ? req.query.fields.join(",")
-            : undefined;
-
-    const healthcheck = await healthcheckServices.getOne(req.params.id, fields);
+    const healthcheck = await healthcheckServices.getOne(
+        req.params.id,
+        stringify(req.query.fields)
+    );
 
     if (!healthcheck) {
         return next(new ApiError("Not found", hs.NOT_FOUND));
@@ -37,9 +21,18 @@ const getOne = catchAsync(async (req, res, next) => {
 });
 
 const getMany = catchAsync(async (req, res, next) => {
-    const query = validQuery(req.query);
+    // const validQueries = [
+    //     "healthcheck",
+    //     "page",
+    //     "limit",
+    //     "sort",
+    //     "fields",
+    //     "text",
+    // ];
 
-    const healthchecks = await healthcheckServices.getMany(query);
+    // const query = pick(req.query, validQueries);
+
+    const healthchecks = await healthcheckServices.getMany(req.query);
 
     res.status(hs.OK).json({
         status: "OK",
@@ -63,9 +56,7 @@ const deleteOne = catchAsync(async (req, res, next) => {
         return next(new ApiError("Not found", hs.NOT_FOUND));
     }
 
-    res.status(hs.NO_CONTENT).json({
-        status: "OK",
-    });
+    res.status(hs.NO_CONTENT).send();
 });
 
 const patch = catchAsync(async (req, res, next) => {

@@ -17,7 +17,7 @@ module.exports = {
         "prefer-destructuring": ["error", { object: true, array: false }],
         "no-unused-vars": [
             "warn",
-            { argsIgnorePattern: "next|req|res|val|err" },
+            { argsIgnorePattern: "next|req|res|val|err|this" },
         ],
         "@typescript-eslint/no-unused-vars": [
             "warn",

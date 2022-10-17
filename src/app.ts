@@ -13,10 +13,12 @@ import { errorHandler } from "./middlewares";
 import { useRoutes } from "./routes";
 import ApiError from "./utils/apiError";
 import { Server } from "http";
+import redis from "redis";
 
 class App {
     public express: Application;
     public port: number;
+    public redisCli?: ReturnType<typeof redis.createClient>;
 
     constructor(port: number) {
         this.express = express();
@@ -26,6 +28,7 @@ class App {
         this.route();
         this.handleError();
         this.connectDb();
+        this.connectRedis();
     }
 
     private initMiddlewares(): void {
@@ -52,6 +55,25 @@ class App {
             })
             .catch((err) => {
                 logger("fatal", "Error connecting to MongoDB: ", err);
+                process.exit(1);
+            });
+    }
+
+    private connectRedis(): void {
+        this.redisCli = redis.createClient({
+            socket: {
+                host: process.env.REDIS_HOST,
+                port: parseInt(process.env.REDIS_PORT || "6379"),
+            },
+            password: process.env.REDIS_PASSWORD,
+        });
+        this.redisCli
+            .connect()
+            .then(() => {
+                logger("info", "Connected to Redis client");
+            })
+            .catch((err) => {
+                logger("fatal", "Error connecting to Redis", err);
                 process.exit(1);
             });
     }

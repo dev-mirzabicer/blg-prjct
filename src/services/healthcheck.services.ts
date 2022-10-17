@@ -9,11 +9,12 @@ const getOne = (id: string, fields = "-__v"): MongoQuery<any, any> => {
         .query();
 };
 
-const getMany = (query: Record<string, string>): MongoQuery<any, any> => {
+const getMany = (query: Record<string, any>): MongoQuery<any, any> => {
     return new AdvancedQuery(Healthcheck.find(), query)
         .filter()
         .sort()
         .paginate()
+        .limit()
         .query();
 };
 

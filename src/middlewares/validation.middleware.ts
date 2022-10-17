@@ -4,11 +4,16 @@ import Joi from "joi";
 import ApiError from "../utils/apiError";
 import pick from "../utils/pick";
 import hs from "http-status";
+import log from "utils/logger";
 
 const validate = (
-    schema: Record<string, Joi.ObjectSchema<any> | Joi.Schema<any>>
+    schema: Record<string, Joi.ObjectSchema<any> | Joi.Schema<any>> | undefined
 ): RequestHandler => {
     return (req: Request, res: Response, next: NextFunction): void => {
+        if (!schema) {
+            log("warn", `No validation at ${req.route.path}`);
+            return next();
+        }
         const options = {
             abortEarly: false,
             allowUnknown: true,

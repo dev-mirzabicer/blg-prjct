@@ -23,6 +23,6 @@ router
     )
     .patch(validate(healthcheckValidation.patch), healthcheckControllers.patch);
 
-const healthcheckRouter: ApiRouter = { path: "healthcheck", router };
+const healthcheckRoutes: ApiRouter = { path: "healthcheck", router };
 
-export default healthcheckRouter;
+export default healthcheckRoutes;

@@ -3,7 +3,7 @@ import { stdout } from "process";
 const logType = {
     info: "\x1b[36m" + "[INFO]" + "\x1b[0m",
     error: "\x1b[31m" + "[ERROR]" + "\x1b[0m",
-    warn: "\x1b[33m \x1b[2m" + "[WARN]" + "\x1b[0m",
+    warn: "\x1b[33m \x1b[2m" + "[WARNING]" + "\x1b[0m",
     fatal: "\x1b[31m \x1b[2m" + "[FATAL]" + "\x1b[0m",
 };
 

@@ -15,6 +15,8 @@ export const app = new App(Number(process.env.PORT));
 
 export const server = app.listen();
 
+export const { redisCli } = app;
+
 process.on("unhandledRejection", (err: Error) => {
     logger("fatal", "Unhandled Rejection:", err);
     logger("info", "Shutting down...");

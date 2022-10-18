@@ -1,8 +1,8 @@
-import catchAsync from "utils/catchAsync";
+import catchAsync from "../utils/catchAsync";
 import hs from "http-status";
 import { postServices } from "../services/";
-import stringify from "utils/stringify";
-import ApiError from "utils/apiError";
+import stringify from "../utils/stringify";
+import ApiError from "../utils/apiError";
 
 const getOne = catchAsync(async (req, res, next) => {
     /**

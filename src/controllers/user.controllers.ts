@@ -1,6 +1,6 @@
 import httpStatus from "http-status";
 import { userServices } from "../services";
-import ApiError from "utils/apiError";
+import ApiError from "../utils/apiError";
 import catchAsync from "../utils/catchAsync";
 
 const changeRole = catchAsync(async (req, res, next) => {

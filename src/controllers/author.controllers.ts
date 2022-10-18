@@ -1,8 +1,8 @@
 import { UserRole } from "../constants";
 import httpStatus from "http-status";
 import { authorServices } from "services";
-import ApiError from "utils/apiError";
-import catchAsync from "utils/catchAsync";
+import ApiError from "../utils/apiError";
+import catchAsync from "../utils/catchAsync";
 
 const patch = catchAsync(async (req, res, next) => {
     const author = await authorServices.patch(req.params.id, req.body);

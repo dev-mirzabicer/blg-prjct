@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { userServices } from "./";
-import ApiError from "utils/apiError";
+import ApiError from "../utils/apiError";
 import TokenModel from "models/token.model";
 import { TokenType } from "../constants";
 import dayjs, { Dayjs } from "dayjs";

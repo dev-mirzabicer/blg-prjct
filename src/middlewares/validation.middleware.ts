@@ -4,7 +4,7 @@ import Joi from "joi";
 import ApiError from "../utils/apiError";
 import pick from "../utils/pick";
 import hs from "http-status";
-import log from "utils/logger";
+import log from "../utils/logger";
 
 const validate = (
     schema: Record<string, Joi.ObjectSchema<any> | Joi.Schema<any>> | undefined

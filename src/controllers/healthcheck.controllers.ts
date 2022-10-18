@@ -2,7 +2,7 @@ import catchAsync from "../utils/catchAsync";
 import hs from "http-status";
 import { healthcheckServices } from "../services/";
 import ApiError from "../utils/apiError";
-import stringify from "utils/stringify";
+import stringify from "../utils/stringify";
 
 const getOne = catchAsync(async (req, res, next) => {
     const healthcheck = await healthcheckServices.getOne(

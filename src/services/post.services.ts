@@ -4,13 +4,13 @@ import PostModel, { Post } from "../models/post.model";
 import { Document } from "mongoose";
 import UserModel, { User } from "models/user.model";
 import { DocumentType } from "@typegoose/typegoose/lib/types";
-import ApiError from "utils/apiError";
+import ApiError from "../utils/apiError";
 import httpStatus from "http-status";
 import dayjs from "dayjs";
 import { TagCat } from "../constants";
 import AnalyticsModel from "models/analytics.model";
 import dfd from "danfojs-node";
-import log from "utils/logger";
+import log from "../utils/logger";
 import { redisCli } from "../";
 
 type Multipliers = {

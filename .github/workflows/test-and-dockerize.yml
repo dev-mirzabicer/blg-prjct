@@ -29,7 +29,7 @@ jobs:
               run: npm test
               env:
                   NODE_ENV: development
-                  MONGO_URI: mongodb://localhost:27017/express-ts-rest-api
+                  MONGO_URI: mongodb://localhost:27017/blg-prjct
                   MONGO_PASSWORD:
                   API_VERSION: 0.0.1
                   PORT: 8371
@@ -50,4 +50,4 @@ jobs:
               uses: docker/build-push-action@v3
               with:
                   push: true
-                  tags: mirzabicer/express-ts-rest-api:latest
+                  tags: mirzabicer/blg-prjct:latest

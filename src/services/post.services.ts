@@ -278,7 +278,6 @@ const getNewFeed = async (
     }
     if (user) {
         await redisCli?.del(user._id as string);
-        //TODO first, delete the existing feed if it does
         nextPostIds.forEach(async (postId) => {
             const multipliers: Multipliers = {
                 likesRatio: postsDf.at(postId, "likesRatio") as number,

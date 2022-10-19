@@ -158,10 +158,7 @@ const getRead = async (postId: string, userId: string) => {
     return postRead;
 };
 
-const getMany = async (
-    query: Record<string, any>
-    // user: DocumentType<User> | undefined = undefined
-) => {
+const getMany = async (query: Record<string, any>) => {
     const posts: DocumentType<Post>[] = await new AdvancedQuery(
         PostModel.find().select("-content"),
         query
@@ -411,8 +408,10 @@ const like = async (id: string, user: DocumentType<User> | undefined) => {
     const foundPost = await PostModel.findById(id);
     if (!user || !foundPost)
         throw new ApiError("No post or user found", httpStatus.NOT_FOUND);
-    await foundPost.addLike(user._id);
-    prefer(user, foundPost, 1);
+    if (await user.addLike(id)) {
+        await foundPost.addLike();
+        prefer(user, foundPost, 1);
+    }
     return foundPost;
 };
 
@@ -422,8 +421,7 @@ const save = async (id: string, user: DocumentType<User> | undefined) => {
     const foundPost = await PostModel.findById(id);
     if (!user || !foundPost)
         throw new ApiError("No post or user found", httpStatus.NOT_FOUND);
-    await user.addSave(foundPost._id);
-    await foundPost.addSave(user._id);
+    (await user.addSave(foundPost._id)) && (await foundPost.addSave());
     return foundPost;
 };
 
@@ -432,8 +430,10 @@ const unlike = async (id: string, user: DocumentType<User> | undefined) => {
     const foundPost = await PostModel.findById(id);
     if (!user || !foundPost)
         throw new ApiError("No post or user found", httpStatus.NOT_FOUND);
-    await foundPost.deleteLike(user._id);
-    prefer(user, foundPost, 1, true);
+    if (await user.deleteLike(foundPost._id)) {
+        await foundPost.deleteLike();
+        prefer(user, foundPost, 1, true);
+    }
     return foundPost;
 };
 
@@ -442,8 +442,7 @@ const unsave = async (id: string, user: DocumentType<User> | undefined) => {
     const foundPost = await PostModel.findById(id);
     if (!user || !foundPost)
         throw new ApiError("No post or user found", httpStatus.NOT_FOUND);
-    await user.deleteSave(foundPost._id);
-    await foundPost.deleteSave(user._id);
+    (await user.deleteSave(foundPost._id)) && (await foundPost.deleteSave());
     return foundPost;
 };
 

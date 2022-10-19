@@ -3,11 +3,10 @@ import {
     prop,
     DocumentType,
     pre,
-    Ref,
+    PropType,
 } from "@typegoose/typegoose";
 import { UserRole, TagCat } from "../constants";
 import bcrypt from "bcryptjs";
-import { Post } from "./post.model";
 
 interface PreferredThing {
     name: string;
@@ -15,9 +14,6 @@ interface PreferredThing {
 }
 
 class ReadPost {
-    @prop({ required: true, ref: () => Post, type: () => String })
-    public post!: Ref<Post, string>;
-
     @prop({ required: true, min: 0, max: 100 })
     public readPercent!: number;
 
@@ -69,11 +65,27 @@ class User {
     @prop({ required: false })
     public avatar?: string;
 
-    @prop({ default: new Map<string, PreferredTag>() })
+    @prop(
+        { default: new Map<string, PreferredTag>(), type: () => PreferredTag },
+        PropType.MAP
+    )
     public preferredTags?: Map<string, PreferredTag>;
 
-    @prop({ default: new Map<string, PreferredCategory>() })
+    @prop(
+        {
+            default: new Map<string, PreferredCategory>(),
+            type: () => PreferredCategory,
+        },
+        PropType.MAP
+    )
     public preferredCategories?: Map<string, PreferredCategory>;
+
+    @prop(
+        { default: new Map<string, boolean>(), type: () => Boolean },
+        PropType.MAP
+    )
+    public likedPosts?: Map<string, boolean>;
+    //since this will be queried a lot, and it will be relatively large (especially compared to savedPosts), I'm making it a map rather than a list
 
     @prop({ default: 0 })
     public totalTagWeight?: number;
@@ -81,10 +93,13 @@ class User {
     @prop({ default: 0 })
     public totalCatWeight?: number;
 
-    @prop({ ref: () => Post, type: () => [String] })
-    public savedPosts?: Ref<Post, string>[];
+    @prop()
+    public savedPosts?: string[];
 
-    @prop({ default: new Map<string, ReadPost>() })
+    @prop(
+        { default: new Map<string, ReadPost>(), type: () => ReadPost },
+        PropType.MAP
+    )
     public readPosts?: Map<string, ReadPost>;
 
     @prop({ required: true, default: UserRole.USER, enum: UserRole })
@@ -140,7 +155,6 @@ class User {
     ) {
         if (!this.readPosts) this.readPosts = new Map<string, ReadPost>();
         this.readPosts.set(postId, {
-            post: postId,
             readPercent: percent,
             leftOff,
             duration,
@@ -150,17 +164,34 @@ class User {
 
     public async addSave(this: DocumentType<User>, postId: string) {
         if (!this.savedPosts) this.savedPosts = [];
-        if (this.savedPosts.includes(postId)) return;
+        if (this.savedPosts.includes(postId)) return false;
         this.savedPosts.push(postId);
         await this.save();
+        return true;
     }
 
     public async deleteSave(this: DocumentType<User>, postId: string) {
-        if (!this.savedPosts) return;
-        this.savedPosts = this.savedPosts.filter((post) => {
-            return (post as string) !== postId;
-        });
+        if (!this.savedPosts) return false;
+        const index = this.savedPosts?.indexOf(postId);
+        if (index && index > -1) {
+            this.savedPosts?.splice(index, 1);
+        } else return false;
         await this.save();
+        return true;
+    }
+
+    public async addLike(this: DocumentType<User>, postId: string) {
+        if (!this.likedPosts) this.likedPosts = new Map<string, boolean>();
+        if (this.likedPosts.get(postId)) return false;
+        this.likedPosts.set(postId, true);
+        await this.save();
+        return true;
+    }
+    public async deleteLike(this: DocumentType<User>, postId: string) {
+        if (!this.likedPosts) return false;
+        if (!this.likedPosts.delete(postId)) return false;
+        await this.save();
+        return true;
     }
 }
 

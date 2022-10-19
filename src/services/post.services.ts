@@ -412,7 +412,7 @@ const like = async (id: string, user: DocumentType<User> | undefined) => {
     if (!user || !foundPost)
         throw new ApiError("No post or user found", httpStatus.NOT_FOUND);
     await foundPost.addLike(user._id);
-    await prefer(user, foundPost, 1);
+    prefer(user, foundPost, 1);
     return foundPost;
 };
 
@@ -433,7 +433,7 @@ const unlike = async (id: string, user: DocumentType<User> | undefined) => {
     if (!user || !foundPost)
         throw new ApiError("No post or user found", httpStatus.NOT_FOUND);
     await foundPost.deleteLike(user._id);
-    await prefer(user, foundPost, 1, true);
+    prefer(user, foundPost, 1, true);
     return foundPost;
 };
 

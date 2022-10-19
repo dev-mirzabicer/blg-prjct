@@ -2,6 +2,7 @@ import {
     DocumentType,
     getModelForClass,
     prop,
+    PropType,
     Ref,
 } from "@typegoose/typegoose";
 import { Author } from "./author.model";
@@ -50,28 +51,31 @@ class Post {
     @prop({ default: 1 })
     public likes?: number;
 
-    @prop({ default: new Map<string, boolean>() })
-    public likedBy?: Map<string, boolean>;
-
     @prop({ default: 1 })
     public saves?: number;
-
-    @prop({ default: new Map<string, boolean>() })
-    public savedBy?: Map<string, boolean>;
 
     @prop({ default: 1 })
     public views?: number;
 
-    // @prop({ default: new Map<string, number>() })
-    // public viewedBy?: Map<string, number>;
-
     @prop({ default: 3 })
     public seen?: number;
 
-    @prop({ default: new Map<string, PreferringTag>() })
+    @prop(
+        {
+            default: new Map<string, PreferringTag>(),
+            type: () => PreferringTag,
+        },
+        PropType.MAP
+    )
     public preferredByTag?: Map<string, PreferringTag>;
 
-    @prop({ default: new Map<string, PreferringCat>() })
+    @prop(
+        {
+            default: new Map<string, PreferringCat>(),
+            type: () => PreferringCat,
+        },
+        PropType.MAP
+    )
     public preferredByCat?: Map<string, PreferringCat>;
 
     @prop({ default: 0 })
@@ -94,8 +98,7 @@ class Post {
         return this.content.length / (150 * 7);
     }
 
-    public async addLike(this: DocumentType<Post>, userId: string) {
-        if (this.likedBy?.get(userId)) return;
+    public async addLike(this: DocumentType<Post>) {
         if (this.likes) {
             this.likes++;
         } else {
@@ -104,8 +107,7 @@ class Post {
         this.save();
     }
 
-    public async addSave(this: DocumentType<Post>, userId: string) {
-        if (this.savedBy?.get(userId)) return;
+    public async addSave(this: DocumentType<Post>) {
         if (this.saves) {
             this.saves++;
         } else {
@@ -114,8 +116,7 @@ class Post {
         this.save();
     }
 
-    public async deleteLike(this: DocumentType<Post>, userId: string) {
-        this.likedBy?.delete(userId);
+    public async deleteLike(this: DocumentType<Post>) {
         if (this.likes) {
             this.likes--;
         } else {
@@ -124,8 +125,7 @@ class Post {
         this.save();
     }
 
-    public async deleteSave(this: DocumentType<Post>, userId: string) {
-        this.savedBy?.delete(userId);
+    public async deleteSave(this: DocumentType<Post>) {
         if (this.saves) {
             this.saves--;
         } else {

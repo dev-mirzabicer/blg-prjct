@@ -30,14 +30,13 @@ const saveToken = async (
     type: string,
     inactive = false
 ) => {
-    const createdToken = await TokenModel.create({
+    return await TokenModel.create({
         token,
         user: userId,
         expires: expires.toDate(),
         type,
         inactive,
     });
-    return createdToken;
 };
 
 const verifyToken = async (token: string, type: string) => {

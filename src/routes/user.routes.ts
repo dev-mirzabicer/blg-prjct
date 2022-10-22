@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { validate } from "middlewares";
-import auth from "middlewares/auth.middleware";
-import { userValidation } from "validations";
-import { userControllers } from "controllers";
+import { validate } from "../middlewares";
+import auth from "../middlewares/auth.middleware";
+import { userValidation } from "../validations";
+import { userControllers } from "../controllers";
 import { ApiRouter } from "../interfaces";
 import { UserRole } from "../constants";
 

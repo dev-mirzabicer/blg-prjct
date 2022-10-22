@@ -1,6 +1,6 @@
 import { TokenType } from "../constants";
 import httpStatus from "http-status";
-import TokenModel from "models/token.model";
+import TokenModel from "../models/token.model";
 import ApiError from "../utils/apiError";
 import userServices from "./user.services";
 import tokenServices from "./token.services";

@@ -1,5 +1,5 @@
 import httpStatus from "http-status";
-import UserModel from "models/user.model";
+import UserModel from "../models/user.model";
 import catchAsync from "../utils/catchAsync";
 
 const keepUserFresh = catchAsync(async (req, res, next) => {

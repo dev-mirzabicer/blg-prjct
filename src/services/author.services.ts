@@ -1,6 +1,6 @@
 import httpStatus from "http-status";
-import AuthorModel, { Author } from "models/author.model";
-import UserModel from "models/user.model";
+import AuthorModel, { Author } from "../models/author.model";
+import UserModel from "../models/user.model";
 import ApiError from "../utils/apiError";
 
 const post = async (authorBody: Author) => {

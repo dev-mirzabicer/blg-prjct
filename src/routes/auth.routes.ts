@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { validate } from "middlewares";
-import auth from "middlewares/auth.middleware";
-import { authValidation } from "validations";
-import { authControllers } from "controllers";
+import { validate } from "../middlewares";
+import auth from "../middlewares/auth.middleware";
+import { authValidation } from "../validations";
+import { authControllers } from "../controllers";
 import { ApiRouter } from "../interfaces";
 
 const router = Router();

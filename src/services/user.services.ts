@@ -1,8 +1,8 @@
 import { UserRole } from "../constants";
 import httpStatus from "http-status";
-import UserModel, { User } from "models/user.model";
-import AuthorModel from "models/author.model";
-import { authorServices } from "services";
+import UserModel, { User } from "../models/user.model";
+import AuthorModel from "../models/author.model";
+import { authorServices } from "../services";
 import AdvancedQuery from "../utils/advancedQuery";
 import ApiError from "../utils/apiError";
 

@@ -1,6 +1,6 @@
 import { UserRole } from "../constants";
 import httpStatus from "http-status";
-import { authorServices } from "services";
+import { authorServices } from "../services";
 import ApiError from "../utils/apiError";
 import catchAsync from "../utils/catchAsync";
 

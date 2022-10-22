@@ -1,9 +1,9 @@
 import { UserRole } from "../constants";
 import { Router } from "express";
-import { validate } from "middlewares";
-import auth from "middlewares/auth.middleware";
-import { postValidation } from "validations";
-import { postControllers } from "controllers";
+import { validate } from "../middlewares";
+import auth from "../middlewares/auth.middleware";
+import { postValidation } from "../validations";
+import { postControllers } from "../controllers";
 import { ApiRouter } from "../interfaces";
 
 const router = Router();

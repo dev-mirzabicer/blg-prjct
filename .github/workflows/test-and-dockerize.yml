@@ -25,6 +25,10 @@ jobs:
               uses: supercharge/mongodb-github-action@1.7.0
               with:
                   mongodb-version: "5.0.7"
+            - name: Start Redis
+              uses: supercharge/redis-github-action@1.4.0
+              with:
+                  redis-version: latest
             - name: Run tests
               run: npm test
               env:

@@ -13,7 +13,7 @@ import { errorHandler } from "./middlewares";
 import { useRoutes } from "./routes";
 import ApiError from "./utils/apiError";
 import { Server } from "http";
-import redis from "redis";
+import * as redis from "redis";
 
 class App {
     public express: Application;

@@ -37,7 +37,7 @@ describe("API Methods", () => {
                 expect(response.body.data.healthchecks).toContainEqual({
                     _id: TEMP_ID,
                     healthcheck: "Test",
-                    __v: 0,
+                    // __v: 0,
                 });
             })
             .catch((error) => {
